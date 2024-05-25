@@ -10,11 +10,9 @@ import 'package:exploreexperthotel/features/user_auth/presentation/widgets/botto
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/hotel_header.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/hotel_home_elev_btn.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
+import 'package:exploreexperthotel/services/database_services.dart';
 
 class HotelHome extends StatelessWidget {
   const HotelHome({super.key});

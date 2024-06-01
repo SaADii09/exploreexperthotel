@@ -1,4 +1,4 @@
-
+import 'package:exploreexperthotel/features/user_auth/presentation/pages/coming_soon.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/login_page.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/sign_up_page.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
@@ -78,7 +78,7 @@ class _AuthViaPageState extends State<AuthViaPage> {
                                 },
                                 color: Colors.white,
                                 height: 60,
-                                mouseCursor: MaterialStateMouseCursor.clickable,
+                                mouseCursor: WidgetStateMouseCursor.clickable,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)),
                                 child: const Center(
@@ -104,7 +104,7 @@ class _AuthViaPageState extends State<AuthViaPage> {
                                 },
                                 color: EXColors.primaryDark,
                                 height: 60,
-                                mouseCursor: MaterialStateMouseCursor.clickable,
+                                mouseCursor: WidgetStateMouseCursor.clickable,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)),
                                 child: const Center(
@@ -163,7 +163,7 @@ class _AuthViaPageState extends State<AuthViaPage> {
                                 onPressed: _handleGoogleSignIn,
                                 color: Colors.white,
                                 height: 50,
-                                mouseCursor: MaterialStateMouseCursor.clickable,
+                                mouseCursor: WidgetStateMouseCursor.clickable,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)),
                                 child: const Center(
@@ -198,11 +198,11 @@ class _AuthViaPageState extends State<AuthViaPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const SignUpPage()));
+                                              const CommingSoon()));
                                 },
                                 color: Colors.white,
                                 height: 50,
-                                mouseCursor: MaterialStateMouseCursor.clickable,
+                                mouseCursor: WidgetStateMouseCursor.clickable,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)),
                                 child: const Center(
@@ -237,11 +237,11 @@ class _AuthViaPageState extends State<AuthViaPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const SignUpPage()));
+                                              const CommingSoon()));
                                 },
                                 color: Colors.white,
                                 height: 50,
-                                mouseCursor: MaterialStateMouseCursor.clickable,
+                                mouseCursor: WidgetStateMouseCursor.clickable,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)),
                                 child: const Center(
@@ -280,11 +280,7 @@ class _AuthViaPageState extends State<AuthViaPage> {
   }
 
   void _handleGoogleSignIn() {
-    try {
-      GoogleAuthProvider _googleAuthProvider = GoogleAuthProvider();
-      _auth.signInWithProvider(_googleAuthProvider);
-    } catch (error) {
-      print(error);
-    }
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const CommingSoon()));
   }
 }

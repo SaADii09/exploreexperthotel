@@ -1,5 +1,6 @@
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/forgot_password_page.dart';
-import 'package:exploreexperthotel/features/user_auth/presentation/pages/home_page.dart';
+import 'package:exploreexperthotel/features/user_auth/presentation/pages/coming_soon.dart';
+import 'package:exploreexperthotel/features/user_auth/presentation/pages/home_page_hotel.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/sign_up_page.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/form_field_container_widget.dart';
@@ -22,7 +23,7 @@ class LoginPage extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.30,
+                height: MediaQuery.of(context).size.height * 0.40,
                 child: Padding(
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.1),
@@ -46,7 +47,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.70,
+                height: MediaQuery.of(context).size.height * 0.60,
                 decoration: const BoxDecoration(
                     color: Color.fromRGBO(252, 252, 252, 0.75),
                     borderRadius: BorderRadius.only(
@@ -112,14 +113,14 @@ class LoginPage extends StatelessWidget {
                           width: MediaQuery.of(context).size.width * 0.50,
                           child: MaterialButton(
                             onPressed: () {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const HomePage()));
+                                      builder: (context) => const HotelHome()));
                             },
                             color: EXColors.primaryDark,
                             height: 60,
-                            mouseCursor: MaterialStateMouseCursor.clickable,
+                            mouseCursor: WidgetStateMouseCursor.clickable,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)),
                             child: const Center(
@@ -160,105 +161,105 @@ class LoginPage extends StatelessWidget {
                             )
                           ],
                         ),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 50,
-                              width: 100,
-                              child: Divider(
-                                color: EXColors.secondaryMedium,
-                                height: 20,
-                                thickness: 1,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                'OR',
-                                style: TextStyle(
-                                    color: EXColors.secondaryMedium,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 50,
-                              width: 100,
-                              child: Divider(
-                                color: EXColors.secondaryMedium,
-                                height: 20,
-                                thickness: 1,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.15,
-                              child: MaterialButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const SignUpPage()));
-                                },
-                                color: Colors.white,
-                                height: 60,
-                                mouseCursor: MaterialStateMouseCursor.clickable,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                                child: const Center(
-                                  child: Icon(Icons.g_mobiledata),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 20),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.15,
-                              child: MaterialButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const SignUpPage()));
-                                },
-                                color: Colors.white,
-                                height: 60,
-                                mouseCursor: MaterialStateMouseCursor.clickable,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                                child: const Center(
-                                  child: Icon(Icons.facebook),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 20),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.15,
-                              child: MaterialButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const SignUpPage()));
-                                },
-                                color: Colors.white,
-                                height: 60,
-                                mouseCursor: MaterialStateMouseCursor.clickable,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                                child: const Center(
-                                  child: Icon(Icons.apple),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
+                        // const Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     SizedBox(
+                        //       height: 50,
+                        //       width: 100,
+                        //       child: Divider(
+                        //         color: EXColors.secondaryMedium,
+                        //         height: 20,
+                        //         thickness: 1,
+                        //       ),
+                        //     ),
+                        //     Padding(
+                        //       padding: EdgeInsets.symmetric(horizontal: 10),
+                        //       child: Text(
+                        //         'OR',
+                        //         style: TextStyle(
+                        //             color: EXColors.secondaryMedium,
+                        //             fontWeight: FontWeight.w500),
+                        //       ),
+                        //     ),
+                        //     SizedBox(
+                        //       height: 50,
+                        //       width: 100,
+                        //       child: Divider(
+                        //         color: EXColors.secondaryMedium,
+                        //         height: 20,
+                        //         thickness: 1,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     SizedBox(
+                        //       width: MediaQuery.of(context).size.width * 0.15,
+                        //       child: MaterialButton(
+                        //         onPressed: () {
+                        //           Navigator.push(
+                        //               context,
+                        //               MaterialPageRoute(
+                        //                   builder: (context) =>
+                        //                       const SignUpPage()));
+                        //         },
+                        //         color: Colors.white,
+                        //         height: 60,
+                        //         mouseCursor: WidgetStateMouseCursor.clickable,
+                        //         shape: RoundedRectangleBorder(
+                        //             borderRadius: BorderRadius.circular(50)),
+                        //         child: const Center(
+                        //           child: Icon(Icons.g_mobiledata),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     const SizedBox(width: 20),
+                        //     SizedBox(
+                        //       width: MediaQuery.of(context).size.width * 0.15,
+                        //       child: MaterialButton(
+                        //         onPressed: () {
+                        //           Navigator.push(
+                        //               context,
+                        //               MaterialPageRoute(
+                        //                   builder: (context) =>
+                        //                       const SignUpPage()));
+                        //         },
+                        //         color: Colors.white,
+                        //         height: 60,
+                        //         mouseCursor: WidgetStateMouseCursor.clickable,
+                        //         shape: RoundedRectangleBorder(
+                        //             borderRadius: BorderRadius.circular(50)),
+                        //         child: const Center(
+                        //           child: Icon(Icons.facebook),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     const SizedBox(width: 20),
+                        //     SizedBox(
+                        //       width: MediaQuery.of(context).size.width * 0.15,
+                        //       child: MaterialButton(
+                        //         onPressed: () {
+                        //           Navigator.push(
+                        //               context,
+                        //               MaterialPageRoute(
+                        //                   builder: (context) =>
+                        //                       const SignUpPage()));
+                        //         },
+                        //         color: Colors.white,
+                        //         height: 60,
+                        //         mouseCursor: WidgetStateMouseCursor.clickable,
+                        //         shape: RoundedRectangleBorder(
+                        //             borderRadius: BorderRadius.circular(50)),
+                        //         child: const Center(
+                        //           child: Icon(Icons.apple),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // )
                       ],
                     ),
                   ),

@@ -1,3 +1,4 @@
+import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: Container(
           width: double.infinity,
-          color: Colors.orangeAccent,
+          color: EXColors.primaryLight,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

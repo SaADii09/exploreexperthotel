@@ -1,44 +1,44 @@
-class Room {
+class Pakage {
   int discount;
-  int rent;
+  int price;
   List<dynamic> facility;
-  int floor;
-  String roomNumber;
+  String description;
+  String title;
   String roomType;
 
-  Room({
+  Pakage({
     required this.discount,
-    required this.rent,
+    required this.price,
     required this.facility,
-    required this.floor,
-    required this.roomNumber,
+    required this.description,
+    required this.title,
     required this.roomType,
   });
 
-  Room.fromJson(Map<String, Object?> json)
+  Pakage.fromJson(Map<String, Object?> json)
       : this(
           discount: json['discount']! as int,
-          rent: json['rent']! as int,
+          price: json['price']! as int,
           facility: json['facility']! as List<dynamic>,
-          floor: json['floor']! as int,
-          roomNumber: json['room_number']! as String,
+          description: json['description']! as String,
+          title: json['title']! as String,
           roomType: json['room_type']! as String,
         );
 
-  Room copyWith({
+  Pakage copyWith({
     int? discount,
-    int? rent,
+    int? price,
     List<String>? facility,
-    int? floor,
-    String? roomNumber,
+    String? description,
+    String? title,
     String? roomType,
   }) {
-    return Room(
+    return Pakage(
       discount: discount ?? this.discount,
-      rent: rent ?? this.rent,
+      price: price ?? this.price,
       facility: facility ?? this.facility,
-      floor: floor ?? this.floor,
-      roomNumber: roomNumber ?? this.roomNumber,
+      description: description ?? this.description,
+      title: title ?? this.title,
       roomType: roomType ?? this.roomType,
     );
   }
@@ -46,10 +46,10 @@ class Room {
   Map<String, Object?> toJson() {
     return {
       'discount': discount,
-      'rent': rent,
+      'price': price,
       'facility': facility,
-      'floor': floor,
-      'room_number': roomNumber,
+      'description': description,
+      'title': title,
       'room_type': roomType,
     };
   }

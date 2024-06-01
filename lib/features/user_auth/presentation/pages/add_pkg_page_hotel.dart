@@ -1,16 +1,28 @@
-
-import 'package:exploreexperthotel/features/user_auth/presentation/widgets/bottom_nav_hotel.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/form_field_container_widget.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/hotel_header.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:exploreexperthotel/models/pakage.dart';
+import 'package:exploreexperthotel/models/room.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:exploreexperthotel/services/database_services.dart';
 
-class HotelAddPkgPage extends StatelessWidget {
+class HotelAddPkgPage extends StatefulWidget {
   const HotelAddPkgPage({super.key});
+
+  @override
+  State<HotelAddPkgPage> createState() => _HotelAddPkgPageState();
+}
+
+class _HotelAddPkgPageState extends State<HotelAddPkgPage> {
+  final PDatabaseServices _pdatabaseService = PDatabaseServices();
+  TextEditingController roomTypeController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController discountController = TextEditingController();
+  TextEditingController facilityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +55,13 @@ class HotelAddPkgPage extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 10),
+                    FormFieldContainerWidget(
+                      hintText: 'Package Title',
+                      labelText: 'Package Title',
+                      isPasswordField: false,
+                      controller: titleController,
+                    ),
+                    const SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 3.0),
                       child: Container(
@@ -52,6 +71,7 @@ class HotelAddPkgPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: DropdownMenu(
+                          controller: roomTypeController,
                           label: const Text('Room Type:'),
                           hintText: 'Select Room type',
                           enableSearch: true,
@@ -126,38 +146,77 @@ class HotelAddPkgPage extends StatelessWidget {
 
                     const SizedBox(height: 10),
                     /////////////////////////////////////////////
-                    const FormFieldContainerWidget(
-                      hintText: 'Package Title',
-                      labelText: 'Package Title:',
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 3.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(.35),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: TextFormField(
+                          maxLines: 4,
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
+                          controller: descController,
+                          keyboardType: TextInputType.multiline,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: EXColors.primaryDark,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: Colors.blueGrey,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            contentPadding: const EdgeInsets.all(15),
+                            floatingLabelStyle: const TextStyle(
+                              color: EXColors.primaryDark,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 3,
+                            ),
+                            hintText: 'Description',
+                            filled: true,
+                            hintStyle: const TextStyle(color: Colors.black45),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    FormFieldContainerWidget(
+                      hintText: 'Price',
+                      labelText: 'Price',
                       isPasswordField: false,
+                      controller: priceController,
+                      inputType: TextInputType.number,
                     ),
                     const SizedBox(height: 10),
 
-                    const FormFieldContainerWidget(
-                      hintText: 'Floor',
-                      labelText: 'Floor',
-                      isPasswordField: false,
-                    ),
-                    const SizedBox(height: 10),
-
-                    const FormFieldContainerWidget(
-                      hintText: 'Rent',
-                      labelText: 'Rent',
-                      isPasswordField: false,
-                    ),
-                    const SizedBox(height: 10),
-
-                    const FormFieldContainerWidget(
+                    FormFieldContainerWidget(
                       hintText: 'Discount',
                       labelText: 'Discount',
                       isPasswordField: false,
+                      controller: discountController,
+                      inputType: TextInputType.number,
                     ),
                     const SizedBox(height: 10),
 
-                    const FormFieldContainerWidget(
+                    FormFieldContainerWidget(
                       hintText: 'Facility',
                       labelText: 'Facility:',
                       isPasswordField: false,
+                      controller: facilityController,
                     ),
                     const SizedBox(height: 10),
                     const ImagePreviewWidget(),
@@ -165,10 +224,27 @@ class HotelAddPkgPage extends StatelessWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.50,
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          String input = facilityController.text;
+                          Pakage pakage = Pakage(
+                            discount: int.parse(discountController.text),
+                            price: int.parse(priceController.text),
+                            description: descController.text,
+                            title: titleController.text,
+                            roomType: roomTypeController.text,
+                            facility: input.split(','),
+                          );
+                          discountController.clear();
+                          priceController.clear();
+                          titleController.clear();
+                          roomTypeController.clear();
+                          descController.clear();
+                          facilityController.clear();
+                          _pdatabaseService.addPakage(pakage);
+                        },
                         color: EXColors.primaryDark,
                         height: 60,
-                        mouseCursor: MaterialStateMouseCursor.clickable,
+                        mouseCursor: WidgetStateMouseCursor.clickable,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
                         child: const Center(
@@ -181,7 +257,7 @@ class HotelAddPkgPage extends StatelessWidget {
                               color: EXColors.secondaryLight,
                             ),
                             Text(
-                              'Add Room',
+                              'Add Package',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
@@ -198,7 +274,6 @@ class HotelAddPkgPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavHotel(),
     );
   }
 }

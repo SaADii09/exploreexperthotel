@@ -1,16 +1,27 @@
-
-import 'package:exploreexperthotel/features/user_auth/presentation/widgets/bottom_nav_hotel.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/form_field_container_widget.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/hotel_header.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:exploreexperthotel/models/room.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:exploreexperthotel/services/database_services.dart';
 
-class HotelAddRoomPage extends StatelessWidget {
+class HotelAddRoomPage extends StatefulWidget {
   const HotelAddRoomPage({super.key});
+
+  @override
+  State<HotelAddRoomPage> createState() => _HotelAddRoomPageState();
+}
+
+class _HotelAddRoomPageState extends State<HotelAddRoomPage> {
+  final DatabaseServices _databaseService = DatabaseServices();
+  TextEditingController roomTypeController = TextEditingController();
+  TextEditingController roomNumberController = TextEditingController();
+  TextEditingController floorController = TextEditingController();
+  TextEditingController rentController = TextEditingController();
+  TextEditingController discountController = TextEditingController();
+  TextEditingController facilityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +63,7 @@ class HotelAddRoomPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: DropdownMenu(
+                          controller: roomTypeController,
                           label: const Text('Room Type:'),
                           hintText: 'Select Room type',
                           enableSearch: true,
@@ -126,38 +138,46 @@ class HotelAddRoomPage extends StatelessWidget {
 
                     const SizedBox(height: 10),
                     /////////////////////////////////////////////
-                    const FormFieldContainerWidget(
+                    FormFieldContainerWidget(
                       hintText: 'Room Number',
                       labelText: 'Room Number:',
                       isPasswordField: false,
+                      controller: roomNumberController,
                     ),
                     const SizedBox(height: 10),
 
-                    const FormFieldContainerWidget(
+                    FormFieldContainerWidget(
                       hintText: 'Floor',
                       labelText: 'Floor',
                       isPasswordField: false,
+                      controller: floorController,
+                      inputType: TextInputType.number,
                     ),
                     const SizedBox(height: 10),
 
-                    const FormFieldContainerWidget(
+                    FormFieldContainerWidget(
                       hintText: 'Rent',
                       labelText: 'Rent',
                       isPasswordField: false,
+                      controller: rentController,
+                      inputType: TextInputType.number,
                     ),
                     const SizedBox(height: 10),
 
-                    const FormFieldContainerWidget(
+                    FormFieldContainerWidget(
                       hintText: 'Discount',
                       labelText: 'Discount',
                       isPasswordField: false,
+                      controller: discountController,
+                      inputType: TextInputType.number,
                     ),
                     const SizedBox(height: 10),
 
-                    const FormFieldContainerWidget(
+                    FormFieldContainerWidget(
                       hintText: 'Facility',
                       labelText: 'Facility:',
                       isPasswordField: false,
+                      controller: facilityController,
                     ),
                     const SizedBox(height: 10),
                     const ImagePreviewWidget(),
@@ -165,10 +185,27 @@ class HotelAddRoomPage extends StatelessWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.50,
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          String input = facilityController.text;
+                          Room room = Room(
+                            discount: int.parse(discountController.text),
+                            rent: int.parse(rentController.text),
+                            floor: int.parse(floorController.text),
+                            roomNumber: roomNumberController.text,
+                            roomType: roomTypeController.text,
+                            facility: input.split(','),
+                          );
+                          discountController.clear();
+                          rentController.clear();
+                          roomNumberController.clear();
+                          roomTypeController.clear();
+                          floorController.clear();
+                          facilityController.clear();
+                          _databaseService.addRoom(room);
+                        },
                         color: EXColors.primaryDark,
                         height: 60,
-                        mouseCursor: MaterialStateMouseCursor.clickable,
+                        mouseCursor: WidgetStateMouseCursor.clickable,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
                         child: const Center(
@@ -198,7 +235,6 @@ class HotelAddRoomPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavHotel(),
     );
   }
 }

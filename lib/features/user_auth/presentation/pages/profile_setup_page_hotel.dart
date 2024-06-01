@@ -1,79 +1,21 @@
 import 'dart:io';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/profile_setup_page_header.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 
-class HotelProfileSetupPage extends StatelessWidget {
+class HotelProfileSetupPage extends StatefulWidget {
   const HotelProfileSetupPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle.dark,
-    );
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: const SizedBox(
-        height: 800,
-        child: Column(
-          children: [
-            ProfileSetupHeader(),
-            Column(
-              children: [
-                Icon(
-                  Icons.menu_book_sharp,
-                  size: 100,
-                ),
-                Text('View your Profile')
-              ],
-            ),
-            ProfileWidget(),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          ElevatedButton(
-            onPressed: () {},
-            child: const Row(
-              children: [
-                Icon(true ? Icons.check : Icons.edit),
-                Text('Edit'),
-              ],
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            child: const Row(
-              children: [
-                Icon(
-                  Icons.cancel,
-                ),
-                Text('Cancel'),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  State<HotelProfileSetupPage> createState() => _HotelProfileSetupPageState();
 }
 
-class ProfileWidget extends StatefulWidget {
-  const ProfileWidget({super.key});
-
-  @override
-  _ProfileWidgetState createState() => _ProfileWidgetState();
-}
-
-class _ProfileWidgetState extends State<ProfileWidget> {
-  bool isEditable = true;
+class _HotelProfileSetupPageState extends State<HotelProfileSetupPage> {
+  bool isEditable = false;
   TextEditingController cityController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
@@ -82,37 +24,117 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   XFile? _imageFile;
   //  = AssetImage('assets/images/ProfileImg2.png');
   final ImagePicker _picker = ImagePicker();
-
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return Column(
-      children: <Widget>[
-        GestureDetector(
-          onTap: isEditable ? _pickImage : null,
-          child: CircleAvatar(
-            radius: 50,
-            backgroundImage:
-                _imageFile == null ? null : FileImage(File(_imageFile!.path)),
-            foregroundImage: const AssetImage('assets/images/ProfileImg2.png'),
-          ),
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.dark,
+    );
+    return Scaffold(
+      appBar: AppBar(
+        title: const ProfileSetupHeader(),
+      ),
+      resizeToAvoidBottomInset: false,
+      body: SizedBox(
+        child: Column(
+          children: [
+            // const ProfileSetupHeader(),
+            const Column(
+              children: [
+                Icon(
+                  Icons.menu_book_sharp,
+                  size: 100,
+                ),
+                Text('View your Profile')
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: isEditable ? _pickImage : null,
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: _imageFile == null
+                        ? null
+                        : FileImage(File(_imageFile!.path)),
+                    foregroundImage:
+                        const AssetImage('assets/images/ProfileImg2.png'),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                buildTextField('City', cityController),
+                buildTextField('Address', addressController),
+                buildTextField('Category', categoryController),
+                buildTextField('Services', servicesController),
+                buildTextField('Hotel/Agency', agencyController),
+              ],
+            ),
+          ],
         ),
-        const SizedBox(height: 16),
-        buildTextField('City', cityController),
-        buildTextField('Address', addressController),
-        buildTextField('Category', categoryController),
-        buildTextField('Services', servicesController),
-        buildTextField('Hotel/Agency', agencyController),
-        IconButton(
-          icon: Icon(isEditable ? Icons.check : Icons.edit),
-          onPressed: () {
-            setState(() {
-              isEditable = !isEditable;
-            });
-          },
+      ),
+      bottomNavigationBar: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.06,
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: !isEditable
+                  ? MainAxisAlignment.center
+                  : MainAxisAlignment.spaceEvenly,
+              children: [
+                MaterialButton(
+                  color: EXColors.primaryDark,
+                  textColor: Colors.white,
+                  onPressed: () {
+                    setState(() {
+                      isEditable = !isEditable;
+                    });
+                  },
+                  child: Row(
+                    children: [
+                      Icon(
+                        (isEditable) ? Icons.save : Icons.edit,
+                        size: 20,
+                      ),
+                      Text(
+                        (isEditable) ? ' Save' : 'Edit',
+                        style: const TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Visibility(
+                  visible: isEditable,
+                  child: MaterialButton(
+                    textColor: Colors.white,
+                    color: EXColors.primaryDark,
+                    onPressed: () {
+                      setState(() {
+                        isEditable = !isEditable;
+                      });
+                    },
+                    child: const Row(
+                      children: [
+                        Icon(
+                          Icons.cancel,
+                          size: 20,
+                        ),
+                        Text(
+                          'Cancel',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -144,13 +166,24 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           SizedBox(
             height: 20,
             width: MediaQuery.of(context).size.width * 0.56,
-            child: TextField(
-              decoration: const InputDecoration(
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
+            child: Container(
+              padding: const EdgeInsets.only(left: 2),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  left: BorderSide(
+                    color: EXColors.secondaryMedium,
+                  ),
+                ),
               ),
-              controller: controller,
-              readOnly: !isEditable,
+              child: TextField(
+                decoration: const InputDecoration(
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                ),
+                controller: controller,
+                readOnly: !isEditable,
+              ),
             ),
           ),
         ],

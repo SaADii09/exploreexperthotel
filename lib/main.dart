@@ -3,6 +3,7 @@ import 'package:exploreexperthotel/features/app/splash_screen.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/auth_via_page.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/home_page_hotel.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/list_room_page_hotel.dart';
+import 'package:exploreexperthotel/features/user_auth/presentation/pages/profile_setup_page_hotel.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -13,7 +13,7 @@ class HotelHome extends StatefulWidget {
 }
 
 class _HotelHomeState extends State<HotelHome> {
-  int myIndex = 2;
+  int myIndex = 0;
   List<Widget> widgetList = [
     const Dashboard(),
     const HotelListRoomPage(),

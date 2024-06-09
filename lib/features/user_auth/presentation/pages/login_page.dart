@@ -4,10 +4,69 @@ import 'package:exploreexperthotel/features/user_auth/presentation/pages/home_pa
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/sign_up_page.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/form_field_container_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final emailcontroller = TextEditingController();
+  final passwordcontroller = TextEditingController();
+
+  void _signInUser() async {
+    // Show loading indicator
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailcontroller.text,
+        password: passwordcontroller.text,
+      );
+
+      // Only proceed if the widget is still mounted
+      if (!mounted) return;
+
+      // Pop the loading indicator
+      Navigator.of(context).pop();
+    } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
+
+      // Pop the loading indicator
+      Navigator.of(context).pop();
+
+      String errorMessage;
+      if (e.code == 'user-not-found') {
+        errorMessage = "Incorrect Email";
+      } else if (e.code == 'wrong-password') {
+        errorMessage = "Incorrect Password";
+      } else {
+        errorMessage = "An error occurred";
+      }
+
+      // Show error dialog
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(errorMessage),
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,16 +131,18 @@ class LoginPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const FormFieldContainerWidget(
+                        FormFieldContainerWidget(
                           hintText: 'Email',
                           labelText: 'Email',
                           isPasswordField: false,
+                          controller: emailcontroller,
                         ),
                         const SizedBox(height: 10),
-                        const FormFieldContainerWidget(
+                        FormFieldContainerWidget(
                           hintText: 'Password',
                           labelText: 'Password',
                           isPasswordField: true,
+                          controller: passwordcontroller,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -112,12 +173,7 @@ class LoginPage extends StatelessWidget {
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.50,
                           child: MaterialButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const HotelHome()));
-                            },
+                            onPressed: _signInUser,
                             color: EXColors.primaryDark,
                             height: 60,
                             mouseCursor: WidgetStateMouseCursor.clickable,
@@ -161,105 +217,6 @@ class LoginPage extends StatelessWidget {
                             )
                           ],
                         ),
-                        // const Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     SizedBox(
-                        //       height: 50,
-                        //       width: 100,
-                        //       child: Divider(
-                        //         color: EXColors.secondaryMedium,
-                        //         height: 20,
-                        //         thickness: 1,
-                        //       ),
-                        //     ),
-                        //     Padding(
-                        //       padding: EdgeInsets.symmetric(horizontal: 10),
-                        //       child: Text(
-                        //         'OR',
-                        //         style: TextStyle(
-                        //             color: EXColors.secondaryMedium,
-                        //             fontWeight: FontWeight.w500),
-                        //       ),
-                        //     ),
-                        //     SizedBox(
-                        //       height: 50,
-                        //       width: 100,
-                        //       child: Divider(
-                        //         color: EXColors.secondaryMedium,
-                        //         height: 20,
-                        //         thickness: 1,
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     SizedBox(
-                        //       width: MediaQuery.of(context).size.width * 0.15,
-                        //       child: MaterialButton(
-                        //         onPressed: () {
-                        //           Navigator.push(
-                        //               context,
-                        //               MaterialPageRoute(
-                        //                   builder: (context) =>
-                        //                       const SignUpPage()));
-                        //         },
-                        //         color: Colors.white,
-                        //         height: 60,
-                        //         mouseCursor: WidgetStateMouseCursor.clickable,
-                        //         shape: RoundedRectangleBorder(
-                        //             borderRadius: BorderRadius.circular(50)),
-                        //         child: const Center(
-                        //           child: Icon(Icons.g_mobiledata),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //     const SizedBox(width: 20),
-                        //     SizedBox(
-                        //       width: MediaQuery.of(context).size.width * 0.15,
-                        //       child: MaterialButton(
-                        //         onPressed: () {
-                        //           Navigator.push(
-                        //               context,
-                        //               MaterialPageRoute(
-                        //                   builder: (context) =>
-                        //                       const SignUpPage()));
-                        //         },
-                        //         color: Colors.white,
-                        //         height: 60,
-                        //         mouseCursor: WidgetStateMouseCursor.clickable,
-                        //         shape: RoundedRectangleBorder(
-                        //             borderRadius: BorderRadius.circular(50)),
-                        //         child: const Center(
-                        //           child: Icon(Icons.facebook),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //     const SizedBox(width: 20),
-                        //     SizedBox(
-                        //       width: MediaQuery.of(context).size.width * 0.15,
-                        //       child: MaterialButton(
-                        //         onPressed: () {
-                        //           Navigator.push(
-                        //               context,
-                        //               MaterialPageRoute(
-                        //                   builder: (context) =>
-                        //                       const SignUpPage()));
-                        //         },
-                        //         color: Colors.white,
-                        //         height: 60,
-                        //         mouseCursor: WidgetStateMouseCursor.clickable,
-                        //         shape: RoundedRectangleBorder(
-                        //             borderRadius: BorderRadius.circular(50)),
-                        //         child: const Center(
-                        //           child: Icon(Icons.apple),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ],
-                        // )
                       ],
                     ),
                   ),

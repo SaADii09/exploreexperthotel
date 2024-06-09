@@ -2,6 +2,7 @@ import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essen
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/form_field_container_widget.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/hotel_header.dart';
 import 'package:exploreexperthotel/models/room.dart';
+import 'package:exploreexperthotel/utils.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -180,7 +181,33 @@ class _HotelAddRoomPageState extends State<HotelAddRoomPage> {
                       controller: facilityController,
                     ),
                     const SizedBox(height: 10),
-                    const ImagePreviewWidget(),
+                    GestureDetector(
+                      onTap: () async {
+                        File? selectedImage =
+                            await getImageFromGallery(context);
+                        if (selectedImage != null) {
+                          bool success = await uploadFileForUser(selectedImage);
+                          print(success);
+                        }
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(.35),
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                            color: Colors.blueGrey,
+                            width: 2,
+                          ),
+                        ),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 4),
+                        padding: const EdgeInsets.all(1),
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        height: 60,
+                        child:
+                            const Icon(Icons.add_a_photo), // Placeholder icon
+                      ),
+                    ),
                     const SizedBox(height: 10),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.50,
@@ -235,64 +262,6 @@ class _HotelAddRoomPageState extends State<HotelAddRoomPage> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class ImagePreviewWidget extends StatefulWidget {
-  const ImagePreviewWidget({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _ImagePreviewWidgetState createState() => _ImagePreviewWidgetState();
-}
-
-class _ImagePreviewWidgetState extends State<ImagePreviewWidget> {
-  List<File?> _images = [null, null, null]; // List to store the selected images
-
-  // Function to select an image from the gallery
-  Future<void> _selectImage(int index) async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      // Update the selected image in the list
-      _images[index] = File(pickedFile!.path);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        for (int i = 0; i < _images.length; i++)
-          GestureDetector(
-            onTap: () => _selectImage(i),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(.35),
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(
-                  color: Colors.blueGrey,
-                  width: 2,
-                ),
-              ),
-              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-              padding: const EdgeInsets.all(1),
-              width: MediaQuery.of(context).size.width * 0.29,
-              height: MediaQuery.of(context).size.width * 0.29,
-              child: _images[i] != null
-                  ? Image.file(
-                      // Display the selected image
-                      _images[i]!,
-                      fit: BoxFit.cover,
-                    )
-                  : const Icon(Icons.add_a_photo), // Placeholder icon
-            ),
-          ),
-      ],
     );
   }
 }

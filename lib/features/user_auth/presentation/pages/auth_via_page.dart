@@ -99,8 +99,7 @@ class _AuthViaPageState extends State<AuthViaPage> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              const LoginPage()));
+                                          builder: (context) => LoginPage()));
                                 },
                                 color: EXColors.primaryDark,
                                 height: 60,

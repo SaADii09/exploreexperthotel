@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/profile_setup_page_header.dart';
-import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/login_page.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/form_field_container_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -11,6 +13,116 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final emailcontroller = TextEditingController();
+  final passwordcontroller = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final webcontroller = TextEditingController();
+  final addresscontroller = TextEditingController();
+  final citycontroller = TextEditingController();
+  final hNamecontroller = TextEditingController();
+  final phonecontroller = TextEditingController();
+  final uancontroller = TextEditingController();
+
+  _signUpUser() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    try {
+      if (passwordcontroller.text == confirmPasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailcontroller.text,
+          password: passwordcontroller.text,
+        );
+
+        addUserDetails(
+          hNamecontroller.text.trim(),
+          citycontroller.text.trim(),
+          emailcontroller.text.trim(),
+          addresscontroller.text.trim(),
+          webcontroller.text.trim(),
+          phonecontroller.text.trim(),
+          uancontroller.text.trim(),
+        );
+
+        emailcontroller.clear();
+        passwordcontroller.clear();
+        confirmPasswordController.clear();
+        webcontroller.clear();
+        addresscontroller.clear();
+        citycontroller.clear();
+        hNamecontroller.clear();
+        phonecontroller.clear();
+        uancontroller.clear();
+        // Only proceed if the widget is still mounted
+        if (!mounted) return;
+
+        // Pop the loading indicator
+        Navigator.of(context).pop();
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => LoginPage()),
+            (route) => false);
+      } else {
+        // Only proceed if the widget is still mounted
+        if (!mounted) return;
+
+        // Pop the loading indicator
+        Navigator.of(context).pop();
+        showDialog(
+          context: context,
+          builder: (context) {
+            return const AlertDialog(
+              title: Text('Passwords don\'t match '),
+            );
+          },
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
+
+      // Pop the loading indicator
+      Navigator.of(context).pop();
+
+      String errorMessage;
+      if (e.code == 'user-not-found') {
+        errorMessage = "Incorrect Email";
+      } else if (e.code == 'wrong-password') {
+        errorMessage = "Incorrect Password";
+      } else {
+        errorMessage = "An error occurred";
+      }
+
+      // Show error dialog
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(errorMessage),
+          );
+        },
+      );
+    }
+  }
+
+  Future addUserDetails(String hName, String city, String email, String address,
+      String web, String phone, String uan) async {
+    await FirebaseFirestore.instance.collection('users_hotel').doc(email).set({
+      'address': address,
+      'city': city,
+      'email': email,
+      'name': hName,
+      'phones': {phone, uan},
+      'website': web
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +137,7 @@ class _SignUpPageState extends State<SignUpPage> {
           child: Column(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.40,
+                height: MediaQuery.of(context).size.height * 0.15,
                 child: Padding(
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.1),
@@ -49,7 +161,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.60,
+                height: MediaQuery.of(context).size.height * 0.85,
                 decoration: const BoxDecoration(
                     color: Color.fromRGBO(252, 252, 252, 0.75),
                     borderRadius: BorderRadius.only(
@@ -66,7 +178,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               bottom:
                                   MediaQuery.of(context).size.height * 0.02),
                           child: const Text(
-                            'Welcome!',
+                            'Register',
                             style: TextStyle(
                               fontSize: 50,
                               fontWeight: FontWeight.bold,
@@ -74,34 +186,74 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-                        const FormFieldContainerWidget(
-                          hintText: 'Enter Username',
-                          labelText: 'Username',
+                        const SizedBox(height: 10),
+                        FormFieldContainerWidget(
+                          hintText: 'Enter Your Hotel Name',
+                          labelText: 'Hotel Name',
                           isPasswordField: false,
+                          controller: hNamecontroller,
                         ),
                         const SizedBox(height: 10),
-                        const FormFieldContainerWidget(
+                        FormFieldContainerWidget(
+                          hintText: 'Enter Your City',
+                          labelText: 'City',
+                          isPasswordField: false,
+                          controller: citycontroller,
+                        ),
+                        const SizedBox(height: 10),
+                        FormFieldContainerWidget(
+                          hintText: 'Enter Your Address',
+                          labelText: 'Complete Address',
+                          isPasswordField: false,
+                          controller: addresscontroller,
+                        ),
+                        const SizedBox(height: 10),
+                        FormFieldContainerWidget(
+                          hintText: 'Enter Your Website',
+                          labelText: 'Website',
+                          isPasswordField: false,
+                          controller: webcontroller,
+                        ),
+                        const SizedBox(height: 10),
+                        FormFieldContainerWidget(
+                          hintText: 'Enter Your Phone Number',
+                          labelText: 'Phone Number',
+                          isPasswordField: false,
+                          controller: phonecontroller,
+                        ),
+                        const SizedBox(height: 10),
+                        FormFieldContainerWidget(
+                          hintText: 'Enter Your UAN',
+                          labelText: 'UAN',
+                          isPasswordField: false,
+                          controller: uancontroller,
+                        ),
+                        const SizedBox(height: 10),
+                        FormFieldContainerWidget(
                           hintText: 'Enter Your Email',
                           labelText: 'Email',
                           isPasswordField: false,
+                          controller: emailcontroller,
                         ),
                         const SizedBox(height: 10),
-                        const FormFieldContainerWidget(
+                        FormFieldContainerWidget(
                           hintText: 'Set a Password',
                           labelText: 'Password',
                           isPasswordField: true,
+                          controller: passwordcontroller,
                         ),
                         const SizedBox(height: 10),
-                        const FormFieldContainerWidget(
+                        FormFieldContainerWidget(
                           hintText: 'Confirm Your Password',
                           labelText: 'Confirm Password',
                           isPasswordField: true,
+                          controller: confirmPasswordController,
                         ),
                         const SizedBox(height: 15),
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.50,
                           child: MaterialButton(
-                            onPressed: () => print('Signup button pressed !'),
+                            onPressed: _signUpUser,
                             color: EXColors.primaryDark,
                             height: 60,
                             mouseCursor: WidgetStateMouseCursor.clickable,
@@ -131,8 +283,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LoginPage()),
+                                        builder: (context) => LoginPage()),
                                     (route) => false);
                               },
                               child: const Text(

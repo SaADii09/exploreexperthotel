@@ -85,7 +85,7 @@ class ForgotPasswordPage extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const LoginPage()));
+                                      builder: (context) =>  LoginPage()));
                             },
                             color: EXColors.primaryDark,
                             height: 60,
@@ -112,7 +112,7 @@ class ForgotPasswordPage extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const LoginPage()),
+                                             LoginPage()),
                                     (route) => false);
                               },
                               child: const Text(

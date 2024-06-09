@@ -4,6 +4,7 @@ import 'package:exploreexperthotel/features/user_auth/presentation/pages/auth_vi
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/home_page_hotel.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/list_room_page_hotel.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/profile_setup_page_hotel.dart';
+import 'package:exploreexperthotel/features/user_auth/presentation/widgets/auth_page.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,18 +27,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'ExploreXpert',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: EXColors.primaryDark),
-          useMaterial3: true,
+      debugShowCheckedModeBanner: false,
+      title: 'ExploreXpert',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: EXColors.primaryDark,
+          primary: EXColors.primaryLight,
+          secondary: EXColors.secondaryDark,
         ),
-        home: const HotelHome()
-        // const HotelProfileSetupPage()
+        useMaterial3: true,
+      ),
+      home:
+          // const HotelHome()
+          // const HotelProfileSetupPage(),
 
-        //     const SplashScreen(
-        //   child: AuthViaPage(),
-        // ),
-        );
+          const SplashScreen(
+        child: AuthPage(),
+      ),
+    );
   }
 }

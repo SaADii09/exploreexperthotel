@@ -35,12 +35,18 @@ class _LoginPageState extends State<LoginPage> {
         email: emailcontroller.text,
         password: passwordcontroller.text,
       );
-
+      emailcontroller.dispose();
+      passwordcontroller.dispose();
       // Only proceed if the widget is still mounted
       if (!mounted) return;
 
       // Pop the loading indicator
       Navigator.of(context).pop();
+
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const HotelHome()),
+          (route) => false);
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
 

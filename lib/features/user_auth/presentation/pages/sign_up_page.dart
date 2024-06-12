@@ -118,7 +118,7 @@ class _SignUpPageState extends State<SignUpPage> {
       'city': city,
       'email': email,
       'name': hName,
-      'phones': {phone, uan},
+      'phones': [phone, uan],
       'website': web
     });
   }

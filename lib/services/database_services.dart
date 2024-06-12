@@ -18,8 +18,8 @@ class PDatabaseServices {
                 ),
             toFirestore: (pakage, _) => pakage.toJson());
   }
-  Stream<QuerySnapshot> getPakage() {
-    return _pakagesRef.snapshots();
+  Stream<QuerySnapshot> getPakage(String? uid) {
+    return _pakagesRef.where('uId', isEqualTo: uid).snapshots();
   }
 
   void addPakage(Pakage pakage) async {
@@ -38,7 +38,7 @@ class PDatabaseServices {
 class DatabaseServices {
   final _firestore = FirebaseFirestore.instance;
 
-  late final CollectionReference _roomsRef;
+  late final CollectionReference<Room> _roomsRef;
 
   DatabaseServices() {
     _roomsRef = _firestore.collection(ROOM_COLLECTION_REF).withConverter<Room>(
@@ -48,19 +48,19 @@ class DatabaseServices {
         toFirestore: (room, _) => room.toJson());
   }
 
-  Stream<QuerySnapshot> getRooms() {
-    return _roomsRef.snapshots();
+  Stream<QuerySnapshot<Room>> getRooms(String? uid) {
+    return _roomsRef.where('uId', isEqualTo: uid).snapshots();
   }
 
-  void addRoom(Room room) async {
-    _roomsRef.add(room);
+  Future<void> addRoom(Room room) async {
+    await _roomsRef.add(room);
   }
 
-  void updateRoom(String roomId, Room room) {
-    _roomsRef.doc(roomId).update(room.toJson());
+  Future<void> updateRoom(String roomId, Room room) async {
+    await _roomsRef.doc(roomId).update(room.toJson());
   }
 
-  void deleteRoom(String roomId) {
-    _roomsRef.doc(roomId).delete();
+  Future<void> deleteRoom(String roomId) async {
+    await _roomsRef.doc(roomId).delete();
   }
 }

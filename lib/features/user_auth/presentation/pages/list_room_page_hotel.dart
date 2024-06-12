@@ -2,6 +2,7 @@ import 'package:exploreexperthotel/features/user_auth/presentation/pages/add_roo
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/models/room.dart';
 import 'package:exploreexperthotel/services/database_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HotelListRoomPage extends StatefulWidget {
@@ -13,6 +14,8 @@ class HotelListRoomPage extends StatefulWidget {
 
 class _HotelListRoomPageState extends State<HotelListRoomPage> {
   final DatabaseServices _databaseService = DatabaseServices();
+  final uzer = FirebaseAuth.instance.currentUser;
+
   bool deleter = false;
   @override
   Widget build(BuildContext context) {
@@ -118,7 +121,7 @@ class _HotelListRoomPageState extends State<HotelListRoomPage> {
                     },
                   );
                 },
-                stream: _databaseService.getRooms(),
+                stream: _databaseService.getRooms(uzer?.uid),
               ),
             )
           ],

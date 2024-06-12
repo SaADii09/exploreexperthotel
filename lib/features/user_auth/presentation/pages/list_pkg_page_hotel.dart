@@ -1,9 +1,8 @@
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/add_pkg_page_hotel.dart';
-import 'package:exploreexperthotel/features/user_auth/presentation/pages/add_room_page_hotel.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/models/pakage.dart';
-import 'package:exploreexperthotel/models/room.dart';
 import 'package:exploreexperthotel/services/database_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HotelListPkgPage extends StatefulWidget {
@@ -15,6 +14,8 @@ class HotelListPkgPage extends StatefulWidget {
 
 class _HotelListPkgPageState extends State<HotelListPkgPage> {
   final PDatabaseServices _pdatabaseService = PDatabaseServices();
+  final uzer = FirebaseAuth.instance.currentUser;
+
   bool deleter = false;
   @override
   Widget build(BuildContext context) {
@@ -121,7 +122,7 @@ class _HotelListPkgPageState extends State<HotelListPkgPage> {
                     },
                   );
                 },
-                stream: _pdatabaseService.getPakage(),
+                stream: _pdatabaseService.getPakage(uzer?.uid),
               ),
             )
           ],

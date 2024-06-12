@@ -5,6 +5,7 @@ class Pakage {
   String description;
   String title;
   String roomType;
+  String? uid;
 
   Pakage({
     required this.discount,
@@ -13,6 +14,7 @@ class Pakage {
     required this.description,
     required this.title,
     required this.roomType,
+    required this.uid,
   });
 
   Pakage.fromJson(Map<String, Object?> json)
@@ -23,6 +25,7 @@ class Pakage {
           description: json['description']! as String,
           title: json['title']! as String,
           roomType: json['room_type']! as String,
+          uid: json['uId']! as String,
         );
 
   Pakage copyWith({
@@ -32,6 +35,7 @@ class Pakage {
     String? description,
     String? title,
     String? roomType,
+    String? uid,
   }) {
     return Pakage(
       discount: discount ?? this.discount,
@@ -40,6 +44,7 @@ class Pakage {
       description: description ?? this.description,
       title: title ?? this.title,
       roomType: roomType ?? this.roomType,
+      uid: uid ?? this.uid,
     );
   }
 
@@ -51,6 +56,7 @@ class Pakage {
       'description': description,
       'title': title,
       'room_type': roomType,
+      'uId': uid,
     };
   }
 }

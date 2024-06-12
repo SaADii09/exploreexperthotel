@@ -3,6 +3,7 @@ import 'package:exploreexperthotel/features/user_auth/presentation/widgets/form_
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/hotel_header.dart';
 import 'package:exploreexperthotel/models/pakage.dart';
 import 'package:exploreexperthotel/models/room.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -23,6 +24,7 @@ class _HotelAddPkgPageState extends State<HotelAddPkgPage> {
   TextEditingController priceController = TextEditingController();
   TextEditingController discountController = TextEditingController();
   TextEditingController facilityController = TextEditingController();
+  final uzer = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -227,6 +229,7 @@ class _HotelAddPkgPageState extends State<HotelAddPkgPage> {
                         onPressed: () {
                           String input = facilityController.text;
                           Pakage pakage = Pakage(
+                            uid: uzer?.uid,
                             discount: int.parse(discountController.text),
                             price: int.parse(priceController.text),
                             description: descController.text,

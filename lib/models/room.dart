@@ -10,6 +10,7 @@ class Room {
   String? provider;
   String timespan;
   String title;
+  bool available;
   //for fetch data
   String? uId;
 
@@ -25,6 +26,7 @@ class Room {
     required this.provider,
     required this.timespan,
     required this.title,
+    required this.available,
     required this.uId,
   });
 
@@ -41,6 +43,8 @@ class Room {
           provider: json['provider']! as String,
           timespan: json['timespan']! as String,
           title: json['title']! as String,
+          available: json['available']! as bool,
+
           uId: json['uId']! as String,
         );
 
@@ -57,6 +61,7 @@ class Room {
     String? timespan,
     String? title,
     String? uId,
+    bool? available,
   }) {
     return Room(
       discount: discount ?? this.discount,
@@ -70,6 +75,7 @@ class Room {
       provider: provider ?? this.provider,
       title: title ?? this.title,
       timespan: timespan ?? this.timespan,
+      available: available ?? this.available,
       uId: uId ?? this.uId,
     );
   }
@@ -87,6 +93,7 @@ class Room {
       'provider': provider,
       'timespan': timespan,
       'title': title,
+      'available': available,
       'uId': uId,
     };
   }

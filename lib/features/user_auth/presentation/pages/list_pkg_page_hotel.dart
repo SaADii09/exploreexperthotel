@@ -41,7 +41,7 @@ class _HotelListPkgPageState extends State<HotelListPkgPage> {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.80,
+              height: MediaQuery.of(context).size.height * 0.75,
               width: MediaQuery.of(context).size.width,
               child: StreamBuilder(
                 builder: (Context, snapshot) {

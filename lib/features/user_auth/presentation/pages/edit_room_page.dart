@@ -9,14 +9,17 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:exploreexperthotel/services/database_services.dart';
 
-class HotelAddRoomPage extends StatefulWidget {
-  const HotelAddRoomPage({super.key});
+class HotelEditRoomPage extends StatefulWidget {
+  final Room roomie;
+  const HotelEditRoomPage(
+      {Key key = const Key('default'), required this.roomie})
+      : super(key: key);
 
   @override
-  State<HotelAddRoomPage> createState() => _HotelAddRoomPageState();
+  State<HotelEditRoomPage> createState() => _HotelEditRoomPageState();
 }
 
-class _HotelAddRoomPageState extends State<HotelAddRoomPage> {
+class _HotelEditRoomPageState extends State<HotelEditRoomPage> {
   final DatabaseServices _databaseService = DatabaseServices();
   TextEditingController roomTypeController = TextEditingController();
   TextEditingController roomNumberController = TextEditingController();

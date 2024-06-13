@@ -3,8 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/profile_setup_page_header.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 
 class HotelProfileSetupPage extends StatefulWidget {
@@ -21,6 +23,8 @@ class _HotelProfileSetupPageState extends State<HotelProfileSetupPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController websiteController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController uanController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   String website = '';
   String uan = '';
   String phone = '';
@@ -76,11 +80,36 @@ class _HotelProfileSetupPageState extends State<HotelProfileSetupPage> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                buildTextField('City', cityController),
-                buildTextField('Address', addressController),
-                buildTextField('Email', emailController),
-                buildTextField('Website', websiteController),
-                buildTextField('Hotel/Agency', nameController),
+                buildTextField(
+                  'City',
+                  cityController,
+                  TextInputType.text,
+                ),
+                buildTextField(
+                  'Address',
+                  addressController,
+                  TextInputType.text,
+                ),
+                buildTextField(
+                  'Website',
+                  websiteController,
+                  TextInputType.text,
+                ),
+                buildTextField(
+                  'Hotel/Agency',
+                  nameController,
+                  TextInputType.text,
+                ),
+                buildTextField(
+                  'UAN',
+                  uanController,
+                  TextInputType.phone,
+                ),
+                buildTextField(
+                  'Phone',
+                  phoneController,
+                  TextInputType.number,
+                ),
               ],
             ),
           ],
@@ -100,9 +129,23 @@ class _HotelProfileSetupPageState extends State<HotelProfileSetupPage> {
                   color: EXColors.primaryDark,
                   textColor: Colors.white,
                   onPressed: () {
-                    setState(() {
-                      isEditable = !isEditable;
-                    });
+                    if (isEditable) {
+                      updateUserDetails(
+                        nameController.text,
+                        cityController.text,
+                        uzer!.email!,
+                        addressController.text,
+                        websiteController.text,
+                        phoneController.text,
+                        uanController.text,
+                      );
+                    }
+
+                    setState(
+                      () {
+                        isEditable = !isEditable;
+                      },
+                    );
                   },
                   child: Row(
                     children: [
@@ -153,7 +196,8 @@ class _HotelProfileSetupPageState extends State<HotelProfileSetupPage> {
     );
   }
 
-  Widget buildTextField(String label, TextEditingController controller) {
+  Widget buildTextField(
+      String label, TextEditingController controller, TextInputType inputType) {
     return Container(
       padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
       margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
@@ -192,6 +236,7 @@ class _HotelProfileSetupPageState extends State<HotelProfileSetupPage> {
                 ),
               ),
               child: TextField(
+                keyboardType: inputType,
                 decoration: const InputDecoration(
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
@@ -204,6 +249,20 @@ class _HotelProfileSetupPageState extends State<HotelProfileSetupPage> {
         ],
       ),
     );
+  }
+
+  Future updateUserDetails(String hName, String city, String email,
+      String address, String web, String phone, String uan) async {
+    await FirebaseFirestore.instance
+        .collection('users_hotel')
+        .doc(email)
+        .update({
+      'address': address,
+      'city': city,
+      'name': hName,
+      'phones': [phone, uan],
+      'website': web
+    });
   }
 
   Future<void> getUserDetails(String email) async {
@@ -224,9 +283,10 @@ class _HotelProfileSetupPageState extends State<HotelProfileSetupPage> {
 
           cityController.text = city;
           addressController.text = address;
-          emailController.text = email;
           websiteController.text = website;
           nameController.text = name;
+          uanController.text = uan;
+          phoneController.text = phone;
           // Set other controllers similarly
         });
       } else {

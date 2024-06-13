@@ -48,8 +48,22 @@ class DatabaseServices {
         toFirestore: (room, _) => room.toJson());
   }
 
-  Stream<QuerySnapshot<Room>> getRooms(String? uid) {
+  Stream<QuerySnapshot<Room>> getAllRooms(String? uid) {
     return _roomsRef.where('uId', isEqualTo: uid).snapshots();
+  }
+
+  Stream<QuerySnapshot<Room>> getRoomsAvaiable(String? uid) {
+    return _roomsRef
+        .where('uId', isEqualTo: uid)
+        .where('available', isEqualTo: true)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Room>> getRoomsNotAvaiable(String? uid) {
+    return _roomsRef
+        .where('uId', isEqualTo: uid)
+        .where('available', isEqualTo: false)
+        .snapshots();
   }
 
   Future<void> addRoom(Room room) async {

@@ -40,9 +40,7 @@ class _HotelListPkgPageState extends State<HotelListPkgPage> {
                 ),
               ),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.75,
-              width: MediaQuery.of(context).size.width,
+            Expanded(
               child: StreamBuilder(
                 builder: (Context, snapshot) {
                   List pakages = snapshot.data?.docs.cast<dynamic>() ?? [];

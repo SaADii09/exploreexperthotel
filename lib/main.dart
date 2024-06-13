@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exploreexperthotel/features/app/splash_screen.dart';
+import 'package:exploreexperthotel/features/user_auth/presentation/pages/home_screen_chat_page.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/auth_page.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/firebase_options.dart';
@@ -23,23 +24,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'ExploreXpert',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: EXColors.primaryDark,
-          primary: EXColors.primaryLight,
-          secondary: EXColors.secondaryDark,
+        debugShowCheckedModeBanner: false,
+        title: 'ExploreXpert',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: EXColors.primaryDark,
+            primary: EXColors.primaryLight,
+            secondary: EXColors.secondaryDark,
+          ),
+          useMaterial3: true,
         ),
-        useMaterial3: true,
-      ),
-      home:
-          // const HotelHome()
-          // const HotelProfileSetupPage(),
+        home:
+        //  HomeScreen()
+        // const HotelHome()
+        // const HotelProfileSetupPage(),
 
           const SplashScreen(
         child: AuthPage(),
-      ),
-    );
+        ),
+        );
   }
 }

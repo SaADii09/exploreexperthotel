@@ -303,15 +303,15 @@ class _HotelAddRoomPageState extends State<HotelAddRoomPage> {
                               roomType: roomTypeController.text,
                               facility: input.split(','),
                             );
-                            discountController.dispose();
-                            rentController.dispose();
-                            roomNumberController.dispose();
-                            roomTypeController.dispose();
-                            floorController.dispose();
-                            facilityController.dispose();
-                            titleController.dispose();
-                            timeSpanController.dispose();
-                            offersController.dispose();
+                            discountController.clear();
+                            rentController.clear();
+                            roomNumberController.clear();
+                            roomTypeController.clear();
+                            floorController.clear();
+                            facilityController.clear();
+                            titleController.clear();
+                            timeSpanController.clear();
+                            offersController.clear();
 
                             _databaseService.addRoom(room);
                           },

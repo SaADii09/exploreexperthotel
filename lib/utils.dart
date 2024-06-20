@@ -1,13 +1,10 @@
-import 'dart:ffi';
 import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_picker/gallery_picker.dart';
 
+// ignore: body_might_complete_normally_nullable
 Future<File?> getImageFromGallery(BuildContext context) async {
   try {
     List<MediaFile>? singleMedia =

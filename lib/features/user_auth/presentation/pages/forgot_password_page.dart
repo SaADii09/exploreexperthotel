@@ -1,4 +1,3 @@
-
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/login_page.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/sign_up_page.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
@@ -85,11 +84,11 @@ class ForgotPasswordPage extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>  LoginPage()));
+                                      builder: (context) => const LoginPage()));
                             },
                             color: EXColors.primaryDark,
                             height: 60,
-                            mouseCursor: MaterialStateMouseCursor.clickable,
+                            mouseCursor: WidgetStateMouseCursor.clickable,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)),
                             child: const Center(
@@ -111,8 +110,7 @@ class ForgotPasswordPage extends StatelessWidget {
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                             LoginPage()),
+                                        builder: (context) => const LoginPage()),
                                     (route) => false);
                               },
                               child: const Text(

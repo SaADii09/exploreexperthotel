@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../widgets/essentials.dart';
 
 class CommingSoon extends StatefulWidget {
   const CommingSoon({super.key});
@@ -10,9 +8,6 @@ class CommingSoon extends StatefulWidget {
 }
 
 class _HomePageState extends State<CommingSoon> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  User? _user;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -2,10 +2,8 @@ import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essen
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/form_field_container_widget.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/hotel_header.dart';
 import 'package:exploreexperthotel/models/pakage.dart';
-import 'package:exploreexperthotel/models/room.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:exploreexperthotel/services/database_services.dart';
 
 class HotelAddPkgPage extends StatefulWidget {
@@ -220,7 +218,7 @@ class _HotelAddPkgPageState extends State<HotelAddPkgPage> {
                       controller: facilityController,
                     ),
                     const SizedBox(height: 10),
-                    const ImagePreviewWidget(),
+                    // imageUploadButton(context),
                     const SizedBox(height: 10),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.50,
@@ -244,7 +242,7 @@ class _HotelAddPkgPageState extends State<HotelAddPkgPage> {
                           facilityController.clear();
                           _pdatabaseService.addPakage(pakage);
                         },
-                        color: EXColors.primaryDark,
+                        color: const Color.fromARGB(255, 0, 0, 0),
                         height: 60,
                         mouseCursor: WidgetStateMouseCursor.clickable,
                         shape: RoundedRectangleBorder(
@@ -278,62 +276,15 @@ class _HotelAddPkgPageState extends State<HotelAddPkgPage> {
       ),
     );
   }
-}
 
-class ImagePreviewWidget extends StatefulWidget {
-  const ImagePreviewWidget({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _ImagePreviewWidgetState createState() => _ImagePreviewWidgetState();
-}
-
-class _ImagePreviewWidgetState extends State<ImagePreviewWidget> {
-  List<File?> _images = [null, null, null]; // List to store the selected images
-
-  // Function to select an image from the gallery
-  Future<void> _selectImage(int index) async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      // Update the selected image in the list
-      _images[index] = File(pickedFile!.path);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        for (int i = 0; i < _images.length; i++)
-          GestureDetector(
-            onTap: () => _selectImage(i),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(.35),
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(
-                  color: Colors.blueGrey,
-                  width: 2,
-                ),
-              ),
-              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-              padding: const EdgeInsets.all(1),
-              width: MediaQuery.of(context).size.width * 0.29,
-              height: MediaQuery.of(context).size.width * 0.29,
-              child: _images[i] != null
-                  ? Image.file(
-                      // Display the selected image
-                      _images[i]!,
-                      fit: BoxFit.cover,
-                    )
-                  : const Icon(Icons.add_a_photo), // Placeholder icon
-            ),
-          ),
-      ],
-    );
-  }
+  // Widget imageUploadButton(BuildContext context) {
+  //   return MaterialButton(
+  //     onPressed: () async {
+  //       File? SelectedImage = await getImageFromGallery(context);
+  //     },
+  //     child: const Icon(
+  //       Icons.upload,
+  //     ),
+  //   );
+  // }
 }

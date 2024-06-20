@@ -2,7 +2,6 @@ import 'package:exploreexperthotel/features/user_auth/presentation/pages/coming_
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/login_page.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/sign_up_page.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthViaPage extends StatefulWidget {
@@ -13,8 +12,6 @@ class AuthViaPage extends StatefulWidget {
 }
 
 class _AuthViaPageState extends State<AuthViaPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +96,7 @@ class _AuthViaPageState extends State<AuthViaPage> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => LoginPage()));
+                                          builder: (context) => const LoginPage()));
                                 },
                                 color: EXColors.primaryDark,
                                 height: 60,

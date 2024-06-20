@@ -1,5 +1,4 @@
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/forgot_password_page.dart';
-import 'package:exploreexperthotel/features/user_auth/presentation/pages/coming_soon.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/home_page_hotel.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/sign_up_page.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
@@ -8,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();

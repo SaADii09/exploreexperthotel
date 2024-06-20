@@ -67,7 +67,7 @@ class _SignUpPageState extends State<SignUpPage> {
         Navigator.of(context).pop();
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => LoginPage()),
+            MaterialPageRoute(builder: (context) => const LoginPage()),
             (route) => false);
       } else {
         // Only proceed if the widget is still mounted
@@ -283,7 +283,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => LoginPage()),
+                                        builder: (context) => const LoginPage()),
                                     (route) => false);
                               },
                               child: const Text(

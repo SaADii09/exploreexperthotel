@@ -1,13 +1,10 @@
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/profile_setup_page_header.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 
 class HotelProfileSetupPage extends StatefulWidget {
   const HotelProfileSetupPage({super.key});
@@ -33,9 +30,9 @@ class _HotelProfileSetupPageState extends State<HotelProfileSetupPage> {
   String address = '';
   final uzer = FirebaseAuth.instance.currentUser;
 
-  XFile? _imageFile;
+  // XFile? _imageFile;
   //  = AssetImage('assets/images/ProfileImg2.png');
-  final ImagePicker _picker = ImagePicker();
+  // final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
@@ -70,13 +67,13 @@ class _HotelProfileSetupPageState extends State<HotelProfileSetupPage> {
               children: <Widget>[
                 GestureDetector(
                   onTap: isEditable ? _pickImage : null,
-                  child: CircleAvatar(
+                  child: const CircleAvatar(
                     radius: 50,
-                    backgroundImage: _imageFile == null
-                        ? null
-                        : FileImage(File(_imageFile!.path)),
+                    // backgroundImage: _imageFile == null
+                    //     ? null
+                    //     : FileImage(File(_imageFile!.path)),
                     foregroundImage:
-                        const AssetImage('assets/images/ProfileImg2.png'),
+                        AssetImage('assets/images/ProfileImg2.png'),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -299,9 +296,9 @@ class _HotelProfileSetupPageState extends State<HotelProfileSetupPage> {
   }
 
   Future<void> _pickImage() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    // final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
-      _imageFile = pickedFile;
+      // _imageFile = pickedFile;
     });
   }
 }

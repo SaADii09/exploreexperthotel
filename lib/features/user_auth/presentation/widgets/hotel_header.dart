@@ -2,7 +2,6 @@ import 'package:exploreexperthotel/features/user_auth/presentation/pages/profile
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class HotelHeader extends StatelessWidget {
   const HotelHeader({super.key});
@@ -15,11 +14,11 @@ class HotelHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
+          const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 height: 25,
                 width: 200,
                 // decoration: const BoxDecoration(
@@ -28,11 +27,11 @@ class HotelHeader extends StatelessWidget {
                 //         AssetImage('assets/images/ExploreXpertTitleBlack.png'),
                 //   ),
                 // ),
-                child: const Image(
+                child: Image(
                   image: AssetImage('assets/images/ExploreXpertTitleBlack.png'),
                 ),
               ),
-              const Text(
+              Text(
                 "Hotel/Agent Management",
                 style: TextStyle(
                   fontSize: 18,

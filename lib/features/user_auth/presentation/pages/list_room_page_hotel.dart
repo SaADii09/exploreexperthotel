@@ -24,7 +24,7 @@ class _HotelListRoomPageState extends State<HotelListRoomPage> {
 
   final ValueNotifier<Stream<QuerySnapshot<Room>>> streamNotifier =
       ValueNotifier<Stream<QuerySnapshot<Room>>>(
-          Stream<QuerySnapshot<Room>>.empty());
+          const Stream<QuerySnapshot<Room>>.empty());
 
   @override
   void initState() {

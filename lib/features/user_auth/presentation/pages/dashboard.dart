@@ -1,5 +1,4 @@
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
-import 'package:exploreexperthotel/features/user_auth/presentation/widgets/hotel_home_elev_btn.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {

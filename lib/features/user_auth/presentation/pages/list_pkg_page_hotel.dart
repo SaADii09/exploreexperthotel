@@ -42,7 +42,7 @@ class _HotelListPkgPageState extends State<HotelListPkgPage> {
             ),
             Expanded(
               child: StreamBuilder(
-                builder: (Context, snapshot) {
+                builder: (context, snapshot) {
                   List pakages = snapshot.data?.docs.cast<dynamic>() ?? [];
                   if (pakages.isEmpty) {
                     return const Center(

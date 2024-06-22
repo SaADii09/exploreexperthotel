@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:exploreexperthotel/features/user_auth/presentation/pages/home_page_hotel.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/form_field_container_widget.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/hotel_header.dart';
@@ -33,7 +34,7 @@ class _HotelAddRoomPageState extends State<HotelAddRoomPage> {
   bool img0 = false;
   bool img1 = false;
   bool img2 = false;
-
+  bool available = false;
   final uzer = FirebaseAuth.instance.currentUser;
   final ImagePicker _imagePicker = ImagePicker();
   Future<void> pickImage(int sel) async {
@@ -105,6 +106,12 @@ class _HotelAddRoomPageState extends State<HotelAddRoomPage> {
         ),
       );
     }
+  }
+
+  void _onChanged(bool? value) {
+    setState(() {
+      available = value ?? false;
+    });
   }
 
   @override
@@ -327,6 +334,32 @@ class _HotelAddRoomPageState extends State<HotelAddRoomPage> {
                     controller: facilityController,
                   ),
                   const SizedBox(height: 10),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+                    height: 60,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(.35),
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(
+                        color: Colors.blueGrey,
+                        width: 2,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Available:'),
+                        Checkbox(
+                          value: available,
+                          onChanged: _onChanged,
+                          checkColor: EXColors.primaryDark,
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -429,13 +462,11 @@ class _HotelAddRoomPageState extends State<HotelAddRoomPage> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.50,
                     child: MaterialButton(
-                      onPressed: ()
-                          //  {}
-                          async {
+                      onPressed: () async {
                         String input = facilityController.text;
                         Room room = Room(
                           images: imgUrl,
-                          available: true,
+                          available: available,
                           title: titleController.text,
                           timespan: timeSpanController.text,
                           provider: await getHotelName(uzer?.email),
@@ -457,8 +488,28 @@ class _HotelAddRoomPageState extends State<HotelAddRoomPage> {
                         titleController.clear();
                         timeSpanController.clear();
                         offersController.clear();
+                        setState(() {
+                          img0 = false;
+                          img1 = false;
+                          img2 = false;
+                        });
 
                         _databaseService.addRoom(room);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: Colors.green,
+                            content: Center(
+                              child: Text(
+                                'Room Added Successfully!!',
+                              ),
+                            ),
+                          ),
+                        );
+                        Navigator.pop(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HotelHome()),
+                        );
                       },
                       color: EXColors.primaryDark,
                       height: 60,
@@ -486,6 +537,7 @@ class _HotelAddRoomPageState extends State<HotelAddRoomPage> {
                       )),
                     ),
                   ),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),

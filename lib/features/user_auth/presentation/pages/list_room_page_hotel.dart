@@ -70,13 +70,14 @@ class _HotelListRoomPageState extends State<HotelListRoomPage> {
                 child: Text(
                   'Room List',
                   style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: EXColors.secondaryLight),
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: EXColors.secondaryLight,
+                  ),
                 ),
               ),
             ),
-            Padding(
+            Container(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -157,6 +158,7 @@ class _HotelListRoomPageState extends State<HotelListRoomPage> {
                                 MaterialPageRoute(
                                   builder: (context) => HotelEditRoomPage(
                                     roomie: room,
+                                    roomieId: roomId,
                                   ),
                                 ),
                               );
@@ -164,14 +166,38 @@ class _HotelListRoomPageState extends State<HotelListRoomPage> {
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                 vertical: 10,
-                                horizontal: 10,
                               ),
-                              decoration:
-                                  BoxDecoration(border: Border.all(width: 1)),
+                              margin: const EdgeInsets.symmetric(
+                                vertical: 2,
+                                horizontal: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                  color: index.isEven
+                                      ? EXColors.primaryDark
+                                      : Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(
+                                    width: 2,
+                                    color: index.isEven
+                                        ? Colors.white
+                                        : EXColors.primaryDark,
+                                  )),
                               child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                    room.images[0],
+                                leading: Container(
+                                  width: 56,
+                                  height: 56,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      width: 2,
+                                      color: index.isEven
+                                          ? Colors.white
+                                          : EXColors.primaryDark,
+                                    ),
+                                    image: DecorationImage(
+                                      image: NetworkImage(room.images[0]),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 title: Text('Room Type : ${room.roomType}'),
@@ -182,8 +208,8 @@ class _HotelListRoomPageState extends State<HotelListRoomPage> {
                                     Text('Floor Number : ${room.floor}'),
                                   ],
                                 ),
-                                trailing: IconButton(
-                                  onPressed: () {
+                                trailing: GestureDetector(
+                                  onTap: () {
                                     showDialog(
                                       context: context,
                                       builder: (context) {
@@ -215,7 +241,23 @@ class _HotelListRoomPageState extends State<HotelListRoomPage> {
                                       },
                                     );
                                   },
-                                  icon: const Icon(Icons.delete),
+                                  child: Container(
+                                    height: 35,
+                                    width: 35,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(50)),
+                                      color: index.isEven
+                                          ? Colors.white
+                                          : EXColors.primaryDark,
+                                    ),
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: index.isEven
+                                          ? EXColors.primaryDark
+                                          : Colors.white,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -232,7 +274,7 @@ class _HotelListRoomPageState extends State<HotelListRoomPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const HotelAddRoomPage()),
           );

@@ -11,6 +11,8 @@ class Room {
   String timespan;
   String title;
   bool available;
+  List<dynamic> images;
+
   //for fetch data
   String? uId;
 
@@ -27,6 +29,7 @@ class Room {
     required this.timespan,
     required this.title,
     required this.available,
+    required this.images,
     required this.uId,
   });
 
@@ -44,6 +47,7 @@ class Room {
           timespan: json['timespan']! as String,
           title: json['title']! as String,
           available: json['available']! as bool,
+          images: json['images']! as List<dynamic>,
 
           uId: json['uId']! as String,
         );
@@ -61,6 +65,7 @@ class Room {
     String? timespan,
     String? title,
     String? uId,
+    List<String>? images,
     bool? available,
   }) {
     return Room(
@@ -76,6 +81,7 @@ class Room {
       title: title ?? this.title,
       timespan: timespan ?? this.timespan,
       available: available ?? this.available,
+      images: images ?? this.images,
       uId: uId ?? this.uId,
     );
   }
@@ -93,6 +99,7 @@ class Room {
       'provider': provider,
       'timespan': timespan,
       'title': title,
+      'images': images,
       'available': available,
       'uId': uId,
     };

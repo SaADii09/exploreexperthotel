@@ -257,15 +257,7 @@ class _HotelEditRoomPageState extends State<HotelEditRoomPage> {
                       ),
                       const SizedBox(height: 10),
                       GestureDetector(
-                        onTap: () async {
-                          File? selectedImage =
-                              await getImageFromGallery(context);
-                          if (selectedImage != null) {
-                            bool success =
-                                await uploadFileForUser(selectedImage);
-                            print(success);
-                          }
-                        },
+                        onTap: () async {},
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.grey.withOpacity(.35),
@@ -293,6 +285,7 @@ class _HotelEditRoomPageState extends State<HotelEditRoomPage> {
                               async {
                             String input = facilityController.text;
                             Room room = Room(
+                              images: [],
                               available: true,
                               title: titleController.text,
                               timespan: timeSpanController.text,

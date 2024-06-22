@@ -169,9 +169,10 @@ class _HotelListRoomPageState extends State<HotelListRoomPage> {
                               decoration:
                                   BoxDecoration(border: Border.all(width: 1)),
                               child: ListTile(
-                                leading: const CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                      'assets/images/ExploreXpertLogo.png'),
+                                leading: CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                    room.images[0],
+                                  ),
                                 ),
                                 title: Text('Room Type : ${room.roomType}'),
                                 subtitle: Column(
@@ -231,7 +232,7 @@ class _HotelListRoomPageState extends State<HotelListRoomPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const HotelAddRoomPage()),
           );

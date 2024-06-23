@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
+import 'package:exploreexperthotel/features/user_auth/presentation/widgets/hotel_header.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/profile_setup_page_header.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -47,13 +48,26 @@ class _HotelProfileSetupPageState extends State<HotelProfileSetupPage> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: const ProfileSetupHeader(),
+        title: const HotelHeader(),
       ),
       resizeToAvoidBottomInset: false,
       body: SizedBox(
         child: Column(
           children: [
-            // const ProfileSetupHeader(),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              height: 40,
+              color: EXColors.primaryDark,
+              child: const Center(
+                child: Text(
+                  'Hotel/Agent Profile',
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: EXColors.secondaryLight),
+                ),
+              ),
+            ),
             const Column(
               children: [
                 Icon(

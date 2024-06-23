@@ -1,9 +1,13 @@
+import 'package:exploreexperthotel/features/user_auth/presentation/pages/dashboard.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/list_pkg_page_hotel.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/list_room_page_hotel.dart';
+import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/hotel_header.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/home_screen_chat_page.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HotelHome extends StatefulWidget {
   const HotelHome({super.key});
@@ -16,7 +20,7 @@ class _HotelHomeState extends State<HotelHome> {
   int myIndex = 0;
 
   List<Widget> widgetList = [
-    // const Dashboard(),
+    const Dashboard(),
     const HotelListRoomPage(),
     const HotelListPkgPage(),
     const HomeScreen(),
@@ -49,22 +53,26 @@ class _HotelHomeState extends State<HotelHome> {
         },
         currentIndex: myIndex,
         items: const [
-          // BottomNavigationBarItem(
-          //   icon: ImageIcon(
-          //     AssetImage('assets/images/ExploreXpertLogoBlack.png'),
-          //   ),
-          //   label: 'Dashboard',
-          // ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.room_preferences),
+            backgroundColor: EXColors.primaryDark,
+            icon: ImageIcon(
+              AssetImage('assets/images/ExploreXpertLogoBlack.png'),
+            ),
+            label: 'Dashboard',
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: EXColors.primaryDark,
+            icon: FaIcon(FontAwesomeIcons.houseChimneyWindow),
             label: 'Rooms',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.gif_box),
+            backgroundColor: EXColors.primaryDark,
+            icon: FaIcon(FontAwesomeIcons.boxesStacked),
             label: 'Packages',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.smart_toy), // Use standard icon
+            backgroundColor: EXColors.primaryDark,
+            icon: Icon(Icons.smart_toy_sharp),
             label: 'Chat AI',
           ),
         ],

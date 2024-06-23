@@ -33,12 +33,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home:
-          //  HomeScreen()
-          // const HotelHome()
-          // const HotelProfileSetupPage(),
-
-          const SplashScreen(
+      home: const SplashScreen(
         child: AuthPage(),
       ),
     );

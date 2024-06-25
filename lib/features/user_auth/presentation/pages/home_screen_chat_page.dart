@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
           height: 40,
           child: const Center(
             child: Text(
-              'Package List',
+              'Chat Ai',
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,

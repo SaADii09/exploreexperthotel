@@ -3,7 +3,6 @@ import 'package:exploreexperthotel/features/user_auth/presentation/pages/list_pk
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/list_room_page_hotel.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/hotel_header.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/pages/home_screen_chat_page.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +16,7 @@ class HotelHome extends StatefulWidget {
 }
 
 class _HotelHomeState extends State<HotelHome> {
-  int myIndex = 0;
+  int myIndex = 1;
 
   List<Widget> widgetList = [
     const Dashboard(),
@@ -73,7 +72,7 @@ class _HotelHomeState extends State<HotelHome> {
           BottomNavigationBarItem(
             backgroundColor: EXColors.primaryDark,
             icon: Icon(Icons.smart_toy_sharp),
-            label: 'Chat AI',
+            label: 'Chat Ai',
           ),
         ],
       ),

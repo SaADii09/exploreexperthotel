@@ -60,9 +60,9 @@ class _HotelEditRoomPageState extends State<HotelEditRoomPage> {
     facilityController.text = widget.roomie.facility.join(', ');
     imgUrl = widget.roomie.images.map((e) => e as String?).toList();
 
-    img0 = false;
-    img1 = false;
-    img2 = false;
+    img0 = true;
+    img1 = true;
+    img2 = true;
   }
 
   Future<void> pickImage(int sel) async {
@@ -189,7 +189,7 @@ class _HotelEditRoomPageState extends State<HotelEditRoomPage> {
                       ),
                       child: DropdownMenu(
                         controller: roomTypeController,
-                        label: Text('Room Type:'),
+                        label: const Text('Room Type:'),
                         hintText: 'Select Room type',
                         enableSearch: true,
                         width: MediaQuery.of(context).size.width * 0.95,
@@ -482,56 +482,69 @@ class _HotelEditRoomPageState extends State<HotelEditRoomPage> {
                     width: MediaQuery.of(context).size.width * 0.50,
                     child: MaterialButton(
                       onPressed: () async {
-                        String input = facilityController.text;
-                        Room updatedroom = Room(
-                          images: imgUrl,
-                          available: available,
-                          title: titleController.text,
-                          timespan: timeSpanController.text,
-                          provider: await getHotelName(uzer?.email),
-                          offers: offersController.text,
-                          uId: uzer?.uid,
-                          discount: int.parse(discountController.text),
-                          rent: int.parse(rentController.text),
-                          floor: int.parse(floorController.text),
-                          roomNumber: roomNumberController.text,
-                          roomType: roomTypeController.text,
-                          facility: input.split(','),
-                        );
-                        discountController.clear();
-                        rentController.clear();
-                        roomNumberController.clear();
-                        roomTypeController.clear();
-                        floorController.clear();
-                        facilityController.clear();
-                        titleController.clear();
-                        timeSpanController.clear();
-                        offersController.clear();
-                        setState(() {
-                          img0 = false;
-                          img1 = false;
-                          img2 = false;
-                        });
+                        if (discountController.text.isNotEmpty &&
+                            rentController.text.isNotEmpty &&
+                            roomNumberController.text.isNotEmpty &&
+                            roomTypeController.text.isNotEmpty &&
+                            floorController.text.isNotEmpty &&
+                            facilityController.text.isNotEmpty &&
+                            titleController.text.isNotEmpty &&
+                            timeSpanController.text.isNotEmpty &&
+                            offersController.text.isNotEmpty &&
+                            img0 &&
+                            img1 &&
+                            img2) {
+                          String input = facilityController.text;
+                          Room updatedroom = Room(
+                            images: imgUrl,
+                            available: available,
+                            title: titleController.text,
+                            timespan: timeSpanController.text,
+                            provider: await getHotelName(uzer?.email),
+                            offers: offersController.text,
+                            uId: uzer?.uid,
+                            discount: int.parse(discountController.text),
+                            rent: int.parse(rentController.text),
+                            floor: int.parse(floorController.text),
+                            roomNumber: roomNumberController.text,
+                            roomType: roomTypeController.text,
+                            facility: input.split(','),
+                          );
+                          discountController.clear();
+                          rentController.clear();
+                          roomNumberController.clear();
+                          roomTypeController.clear();
+                          floorController.clear();
+                          facilityController.clear();
+                          titleController.clear();
+                          timeSpanController.clear();
+                          offersController.clear();
+                          setState(() {
+                            img0 = false;
+                            img1 = false;
+                            img2 = false;
+                          });
 
-                        _databaseService.updateRoom(
-                          widget.roomieId,
-                          updatedroom,
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            backgroundColor: Colors.green,
-                            content: Center(
-                              child: Text(
-                                'Changes Saved Successfully!!',
+                          _databaseService.updateRoom(
+                            widget.roomieId,
+                            updatedroom,
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: Colors.green,
+                              content: Center(
+                                child: Text(
+                                  'Changes Saved Successfully!!',
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                        Navigator.pop(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HotelHome()),
-                        );
+                          );
+                          Navigator.pop(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HotelHome()),
+                          );
+                        } else {}
                       },
                       color: EXColors.primaryDark,
                       height: 60,

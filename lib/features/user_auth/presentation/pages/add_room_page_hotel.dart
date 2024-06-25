@@ -463,53 +463,77 @@ class _HotelAddRoomPageState extends State<HotelAddRoomPage> {
                     width: MediaQuery.of(context).size.width * 0.50,
                     child: MaterialButton(
                       onPressed: () async {
-                        String input = facilityController.text;
-                        Room room = Room(
-                          images: imgUrl,
-                          available: available,
-                          title: titleController.text,
-                          timespan: timeSpanController.text,
-                          provider: await getHotelName(uzer?.email),
-                          offers: offersController.text,
-                          uId: uzer?.uid,
-                          discount: int.parse(discountController.text),
-                          rent: int.parse(rentController.text),
-                          floor: int.parse(floorController.text),
-                          roomNumber: roomNumberController.text,
-                          roomType: roomTypeController.text,
-                          facility: input.split(','),
-                        );
-                        discountController.clear();
-                        rentController.clear();
-                        roomNumberController.clear();
-                        roomTypeController.clear();
-                        floorController.clear();
-                        facilityController.clear();
-                        titleController.clear();
-                        timeSpanController.clear();
-                        offersController.clear();
-                        setState(() {
-                          img0 = false;
-                          img1 = false;
-                          img2 = false;
-                        });
+                        if (discountController.text.isNotEmpty &&
+                            rentController.text.isNotEmpty &&
+                            roomNumberController.text.isNotEmpty &&
+                            roomTypeController.text.isNotEmpty &&
+                            floorController.text.isNotEmpty &&
+                            facilityController.text.isNotEmpty &&
+                            titleController.text.isNotEmpty &&
+                            timeSpanController.text.isNotEmpty &&
+                            offersController.text.isNotEmpty &&
+                            img0 &&
+                            img1 &&
+                            img2) {
+                          String input = facilityController.text;
+                          Room room = Room(
+                            images: imgUrl,
+                            available: available,
+                            title: titleController.text,
+                            timespan: timeSpanController.text,
+                            provider: await getHotelName(uzer?.email),
+                            offers: offersController.text,
+                            uId: uzer?.uid,
+                            discount: int.parse(discountController.text),
+                            rent: int.parse(rentController.text),
+                            floor: int.parse(floorController.text),
+                            roomNumber: roomNumberController.text,
+                            roomType: roomTypeController.text,
+                            facility: input.split(','),
+                          );
+                          discountController.clear();
+                          rentController.clear();
+                          roomNumberController.clear();
+                          roomTypeController.clear();
+                          floorController.clear();
+                          facilityController.clear();
+                          titleController.clear();
+                          timeSpanController.clear();
+                          offersController.clear();
+                          setState(() {
+                            img0 = false;
+                            img1 = false;
+                            img2 = false;
+                          });
 
-                        _databaseService.addRoom(room);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            backgroundColor: Colors.green,
-                            content: Center(
-                              child: Text(
-                                'Room Added Successfully!!',
+                          _databaseService.addRoom(room);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: Colors.green,
+                              content: Center(
+                                child: Text(
+                                  'Room Added Successfully!!',
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                        Navigator.pop(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HotelHome()),
-                        );
+                          );
+                          Navigator.pop(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HotelHome()),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: Colors.orange,
+                              content: Center(
+                                child: Text(
+                                  'Fill out All fields and add wait for images to load!!',
+                                ),
+                              ),
+                            ),
+                          );
+                        }
                       },
                       color: EXColors.primaryDark,
                       height: 60,

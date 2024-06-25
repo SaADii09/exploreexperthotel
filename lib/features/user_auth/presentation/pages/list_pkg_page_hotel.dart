@@ -61,11 +61,33 @@ class _HotelListPkgPageState extends State<HotelListPkgPage> {
                           vertical: 10,
                           horizontal: 10,
                         ),
-                        decoration: BoxDecoration(border: Border.all(width: 1)),
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 4,
+                          horizontal: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: EXColors.primaryDark,
+                          ),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
                         child: ListTile(
-                          leading: const CircleAvatar(
-                            backgroundImage: AssetImage(
-                                'assets/images/ExploreXpertLogo.png'),
+                          leading: Container(
+                            width: 56,
+                            height: 56,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                width: 2,
+                                color: EXColors.primaryDark,
+                              ),
+                              image: const DecorationImage(
+                                image: AssetImage(
+                                    'assets/images/ExploreXpertLogoBlack.png'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                           title: Text(
                             'Title : ${pakage.title}',
@@ -113,7 +135,10 @@ class _HotelListPkgPageState extends State<HotelListPkgPage> {
                                     );
                                   });
                             },
-                            icon: const Icon(Icons.delete),
+                            icon: const Icon(
+                              Icons.delete,
+                              color: EXColors.primaryDark,
+                            ),
                           ),
                         ),
                       );

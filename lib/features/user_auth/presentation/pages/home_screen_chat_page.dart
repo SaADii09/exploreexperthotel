@@ -1,4 +1,5 @@
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/essentials.dart';
+import 'package:exploreexperthotel/features/user_auth/presentation/widgets/form_field_container_widget.dart';
 import 'package:exploreexperthotel/features/user_auth/presentation/widgets/message_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
@@ -32,7 +33,27 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat AI'),
+        title: Container(
+          decoration: const BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: EXColors.primaryDark,
+              ),
+            ),
+          ),
+          margin: const EdgeInsets.symmetric(vertical: 8),
+          height: 40,
+          child: const Center(
+            child: Text(
+              'Package List',
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: EXColors.primaryDark,
+              ),
+            ),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -65,14 +86,19 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 children: [
                   Expanded(
-                    child: TextField(
-                      // autofocus: true,
-                      // focusNode: _textFieldFocus,
-                      decoration: textFieldDecoration(),
-                      controller: _textController,
-                      onSubmitted: _sendChatMessage,
-                    ),
-                  ),
+                      child: FormFieldContainerWidget(
+                    hintText: 'Enter a prompt ... ',
+                    controller: _textController,
+                    onFieldSubmitted: _sendChatMessage,
+                  )
+                      // TextField(
+                      //   // autofocus: true,
+                      //   // focusNode: _textFieldFocus,
+                      //   decoration: textFieldDecoration(),
+                      //   controller: _textController,
+                      //   onSubmitted: _sendChatMessage,
+                      // ),
+                      ),
                   const SizedBox(height: 15),
                   if (!_loading)
                     IconButton(
@@ -81,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       icon: const Icon(
                         Icons.send,
-                        color: EXColors.secondaryDark,
+                        color: EXColors.primaryDark,
                       ),
                     )
                   else

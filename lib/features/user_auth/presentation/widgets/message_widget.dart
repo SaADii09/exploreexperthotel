@@ -19,20 +19,28 @@ class MessageWidget extends StatelessWidget {
           isFromUser ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Flexible(
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: 15,
-              horizontal: 20,
-            ),
-            margin: const EdgeInsets.only(bottom: 8),
-            constraints: const BoxConstraints(maxWidth: 520),
-            decoration: BoxDecoration(
-              color:
-                  isFromUser ? EXColors.primaryDark : EXColors.secondaryMedium,
-              borderRadius: BorderRadius.circular(18),
-            ),
-            child: Column(
-              children: [MarkdownBody(data: text)],
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width * 0.9),
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 15,
+                horizontal: 20,
+              ),
+              margin: const EdgeInsets.only(bottom: 8),
+              constraints: const BoxConstraints(maxWidth: 520),
+              decoration: BoxDecoration(
+                  color: EXColors.secondaryLight,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(isFromUser ? 15 : 0),
+                    bottomRight: Radius.circular(isFromUser ? 0 : 15),
+                    topLeft: Radius.circular(isFromUser ? 15 : 0),
+                    topRight: Radius.circular(isFromUser ? 0 : 15),
+                  ),
+                  border: Border.all(width: 2, color: EXColors.primaryDark)),
+              child: Column(
+                children: [MarkdownBody(data: text)],
+              ),
             ),
           ),
         )

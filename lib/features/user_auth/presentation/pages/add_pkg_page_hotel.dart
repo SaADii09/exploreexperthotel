@@ -223,26 +223,44 @@ class _HotelAddPkgPageState extends State<HotelAddPkgPage> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.50,
                       child: MaterialButton(
-                        onPressed: () {
-                          String input = facilityController.text;
-                          Pakage pakage = Pakage(
-                            uid: uzer?.uid,
-                            discount: int.parse(discountController.text),
-                            price: int.parse(priceController.text),
-                            description: descController.text,
-                            title: titleController.text,
-                            roomType: roomTypeController.text,
-                            facility: input.split(','),
-                          );
-                          discountController.clear();
-                          priceController.clear();
-                          titleController.clear();
-                          roomTypeController.clear();
-                          descController.clear();
-                          facilityController.clear();
-                          _pdatabaseService.addPakage(pakage);
+                        onPressed: () async {
+                          if (discountController.text.isNotEmpty &&
+                              priceController.text.isNotEmpty &&
+                              titleController.text.isNotEmpty &&
+                              roomTypeController.text.isNotEmpty &&
+                              descController.text.isNotEmpty &&
+                              facilityController.text.isNotEmpty) {
+                            String input = facilityController.text;
+                            Pakage pakage = Pakage(
+                              uid: uzer?.uid,
+                              discount: int.parse(discountController.text),
+                              price: int.parse(priceController.text),
+                              description: descController.text,
+                              title: titleController.text,
+                              roomType: roomTypeController.text,
+                              facility: input.split(','),
+                            );
+                            discountController.clear();
+                            priceController.clear();
+                            titleController.clear();
+                            roomTypeController.clear();
+                            descController.clear();
+                            facilityController.clear();
+                            _pdatabaseService.addPakage(pakage);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                backgroundColor: Colors.orange,
+                                content: Center(
+                                  child: Text(
+                                    'Fill out all Fields!!',
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
                         },
-                        color: const Color.fromARGB(255, 0, 0, 0),
+                        color: EXColors.primaryDark,
                         height: 60,
                         mouseCursor: WidgetStateMouseCursor.clickable,
                         shape: RoundedRectangleBorder(

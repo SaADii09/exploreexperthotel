@@ -47,7 +47,7 @@ class _DashboardState extends State<Dashboard> {
             child: SingleChildScrollView(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: EXColors.primaryDark,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.7),
